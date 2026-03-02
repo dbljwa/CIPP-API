@@ -1,0 +1,21 @@
+name: Deploy CIPP API to Azure
+
+on:
+  push:
+    branches:
+      - main  # Falls Ihr Hauptbranch "master" heißt, bitte hier anpassen
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v4
+
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        with:
+          # Ersetzen Sie 'IHRE-API-APP-NAME' durch den echten Namen Ihrer Function App in Azure
+          app-name: 'CIPP-API-APP' 
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0554D9A48BE4B0CBE876117C14FDF3D }}
